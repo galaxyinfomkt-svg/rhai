@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <linearGradient id="lg" x1="0" x2="1">
+      <stop offset="0" stop-color="#7c5cff" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#00d4ff" stop-opacity="0.9"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="520" rx="32" fill="transparent" />
+  <g transform="translate(40,40)">
+    <rect width="720" height="440" rx="24" fill="url(#lg)" opacity="0.12"/>
+    <g transform="translate(40,40)">
+      <rect width="320" height="120" rx="12" fill="#071226" opacity="0.85"/>
+      <rect x="0" y="140" width="520" height="220" rx="12" fill="#071226" opacity="0.7"/>
+      <circle cx="560" cy="80" r="48" fill="#0f1724" opacity="0.9"/>
+    </g>
+    <text x="30" y="30" fill="#cfe8ff" font-family="Inter, Arial" font-size="18">Ilustração</text>
+  </g>
+</svg>
