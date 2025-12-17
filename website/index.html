@@ -3,18 +3,21 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Meu Site - Início</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>SINMEVACO - Sindicato dos Metalúrgicos de Varginha e Covas</title>
+    <meta name="description" content="SINMEVACO - Representando e defendendo os direitos dos trabalhadores metalúrgicos de Varginha e Covas">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css" />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   </head>
   <body>
     <header class="site-header">
       <div class="container">
-        <a class="brand" href="index.html">MeuSite</a>
+        <a class="brand" href="index.html">SINMEVACO</a>
         <nav class="nav" id="nav">
           <a href="index.html">Início</a>
-          <a href="about.html">Sobre</a>
+          <a href="about.html">Sobre o Sindicato</a>
+          <a href="#noticias">Notícias</a>
+          <a href="#servicos">Serviços</a>
           <a href="contact.html">Contato</a>
         </nav>
         <button class="nav-toggle" id="navToggle" aria-label="Abrir menu">☰</button>
@@ -25,33 +28,130 @@
       <section class="hero">
         <div class="container hero-inner">
           <div class="hero-copy">
-            <h1>Bem-vindo ao Meu Site</h1>
-            <p>Um site simples, responsivo e pronto para você customizar.</p>
-            <p><a class="btn" href="about.html">Saiba mais</a></p>
+            <h1>Unidos pela Força do Trabalho</h1>
+            <p>O SINMEVACO representa e defende os direitos dos trabalhadores metalúrgicos de Varginha e Covas, lutando por melhores condições de trabalho, salários justos e dignidade profissional.</p>
+            <p>
+              <a class="btn" href="about.html">Conheça o Sindicato</a>
+              <a class="btn btn-secondary" href="contact.html">Filie-se Agora</a>
+            </p>
           </div>
-          <img src="assets/hero-illustration.svg" alt="Ilustração" class="hero-illustration" />
+          <div class="hero-image">
+            <img src="assets/hero-illustration.svg" alt="Trabalhadores unidos" class="hero-illustration" />
+          </div>
         </div>
       </section>
 
-      <section class="features container">
-        <article>
-          <h3>Design Responsivo</h3>
-          <p>Funciona bem em desktop, tablet e celular.</p>
+      <section class="stats container">
+        <div class="stat-card">
+          <div class="stat-number">2.500+</div>
+          <div class="stat-label">Trabalhadores Filiados</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">30+</div>
+          <div class="stat-label">Anos de História</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Comprometimento</div>
+        </div>
+      </section>
+
+      <section id="servicos" class="features container">
+        <div class="section-header">
+          <h2>Serviços e Benefícios</h2>
+          <p class="muted">Conheça os serviços disponíveis para trabalhadores filiados</p>
+        </div>
+        <article class="feature-card">
+          <div class="feature-icon">⚖️</div>
+          <h3>Assessoria Jurídica</h3>
+          <p>Orientação e suporte jurídico para questões trabalhistas e previdenciárias.</p>
         </article>
-        <article>
-          <h3>Fácil de Personalizar</h3>
-          <p>Arquivos limpos com HTML, CSS e JavaScript.</p>
+        <article class="feature-card">
+          <div class="feature-icon">🤝</div>
+          <h3>Negociação Coletiva</h3>
+          <p>Representação nas negociações com empresas por melhores salários e condições.</p>
         </article>
-        <article>
-          <h3>Formulário de Contato</h3>
-          <p>Exemplo simples para capturar mensagens dos visitantes.</p>
+        <article class="feature-card">
+          <div class="feature-icon">🏥</div>
+          <h3>Convênios de Saúde</h3>
+          <p>Acesso a convênios médicos e odontológicos com valores diferenciados.</p>
         </article>
+        <article class="feature-card">
+          <div class="feature-icon">📚</div>
+          <h3>Formação Profissional</h3>
+          <p>Cursos e capacitações para o desenvolvimento profissional dos trabalhadores.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3>Defesa dos Direitos</h3>
+          <p>Acompanhamento e fiscalização do cumprimento dos direitos trabalhistas.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">💼</div>
+          <h3>Apoio ao Trabalhador</h3>
+          <p>Suporte em casos de demissão, acidentes de trabalho e outras emergências.</p>
+        </article>
+      </section>
+
+      <section id="noticias" class="news-section">
+        <div class="container">
+          <div class="section-header">
+            <h2>Últimas Notícias</h2>
+            <p class="muted">Fique por dentro das novidades do sindicato</p>
+          </div>
+          <div class="news-grid">
+            <article class="news-card">
+              <div class="news-date">15 Dez 2025</div>
+              <h3>Assembleia Geral Extraordinária</h3>
+              <p>Convocamos todos os trabalhadores para assembleia no dia 20/12 para discussão da pauta de reivindicações.</p>
+              <a href="#" class="news-link">Leia mais →</a>
+            </article>
+            <article class="news-card">
+              <div class="news-date">10 Dez 2025</div>
+              <h3>Conquista de Reajuste Salarial</h3>
+              <p>Após negociações, conseguimos reajuste de 8% acima da inflação para categoria metalúrgica.</p>
+              <a href="#" class="news-link">Leia mais →</a>
+            </article>
+            <article class="news-card">
+              <div class="news-date">05 Dez 2025</div>
+              <h3>Novos Convênios Disponíveis</h3>
+              <p>Firmamos parcerias com clínicas e laboratórios para atendimento aos filiados.</p>
+              <a href="#" class="news-link">Leia mais →</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta-section">
+        <div class="container">
+          <div class="cta-content">
+            <h2>Faça Parte da Nossa Luta</h2>
+            <p>Juntos somos mais fortes. Filie-se ao SINMEVACO e tenha acesso a todos os benefícios e serviços.</p>
+            <a class="btn btn-large" href="contact.html">Quero me Filiar</a>
+          </div>
+        </div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <div class="container">
-        <p>© 2025 MeuSite. Todos os direitos reservados.</p>
+      <div class="container footer-content">
+        <div class="footer-section">
+          <h4>SINMEVACO</h4>
+          <p>Sindicato dos Metalúrgicos de Varginha e Covas</p>
+        </div>
+        <div class="footer-section">
+          <h4>Contato</h4>
+          <p>Telefone: (35) XXXX-XXXX<br>
+          Email: contato@sinmevaco.org.br</p>
+        </div>
+        <div class="footer-section">
+          <h4>Horário de Atendimento</h4>
+          <p>Segunda a Sexta<br>
+          08:00 às 17:00</p>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        <p>© 2025 SINMEVACO. Todos os direitos reservados.</p>
       </div>
     </footer>
 
