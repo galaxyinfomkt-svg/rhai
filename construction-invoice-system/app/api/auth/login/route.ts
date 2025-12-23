@@ -9,7 +9,7 @@ export async function POST(request: Request) {
     // Validate input
     if (!email || !password) {
       return NextResponse.json(
-        { error: "Email e senha são obrigatórios" },
+        { error: "Email and password are required" },
         { status: 400 }
       );
     }
@@ -21,7 +21,7 @@ export async function POST(request: Request) {
 
     if (!user) {
       return NextResponse.json(
-        { error: "Email ou senha inválidos" },
+        { error: "Invalid email or password" },
         { status: 401 }
       );
     }
@@ -31,7 +31,7 @@ export async function POST(request: Request) {
 
     if (!validPassword) {
       return NextResponse.json(
-        { error: "Email ou senha inválidos" },
+        { error: "Invalid email or password" },
         { status: 401 }
       );
     }
@@ -39,12 +39,13 @@ export async function POST(request: Request) {
     // Create session (simplified - in production use NextAuth or similar)
     const response = NextResponse.json(
       {
-        message: "Login bem-sucedido",
+        message: "Login successful",
         user: {
           id: user.id,
           name: user.name,
           email: user.email,
           role: user.role,
+          companyName: user.companyName,
         },
       },
       { status: 200 }
@@ -62,7 +63,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("Login error:", error);
     return NextResponse.json(
-      { error: "Erro ao fazer login" },
+      { error: "Failed to login" },
       { status: 500 }
     );
   }

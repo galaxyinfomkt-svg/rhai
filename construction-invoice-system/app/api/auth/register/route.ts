@@ -4,12 +4,12 @@ import bcrypt from "bcryptjs";
 
 export async function POST(request: Request) {
   try {
-    const { name, email, password } = await request.json();
+    const { name, email, phone, companyName, password } = await request.json();
 
     // Validate input
     if (!name || !email || !password) {
       return NextResponse.json(
-        { error: "Todos os campos são obrigatórios" },
+        { error: "Name, email and password are required" },
         { status: 400 }
       );
     }
@@ -21,7 +21,7 @@ export async function POST(request: Request) {
 
     if (existingUser) {
       return NextResponse.json(
-        { error: "Email já cadastrado" },
+        { error: "Email is already registered" },
         { status: 400 }
       );
     }
@@ -34,13 +34,15 @@ export async function POST(request: Request) {
       data: {
         name,
         email,
+        phone,
+        companyName,
         password: hashedPassword,
       },
     });
 
     return NextResponse.json(
       {
-        message: "Usuário criado com sucesso",
+        message: "Account created successfully",
         user: {
           id: user.id,
           name: user.name,
@@ -52,7 +54,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("Registration error:", error);
     return NextResponse.json(
-      { error: "Erro ao criar usuário" },
+      { error: "Failed to create account" },
       { status: 500 }
     );
   }

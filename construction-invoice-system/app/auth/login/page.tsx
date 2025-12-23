@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { FileText } from "lucide-react";
+import { Sparkles, Mail, Lock, ArrowRight, Loader2 } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -27,93 +27,124 @@ export default function LoginPage() {
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.error || "Erro ao fazer login");
+        setError(data.error || "Invalid credentials");
+        setLoading(false);
+        return;
       }
 
-      // Redirect to dashboard
       router.push("/dashboard");
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
+    } catch {
+      setError("An error occurred. Please try again.");
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
+        {/* Logo */}
         <div className="text-center mb-8">
-          <div className="flex justify-center mb-4">
-            <div className="h-16 w-16 bg-blue-600 rounded-xl flex items-center justify-center">
-              <FileText className="h-8 w-8 text-white" />
+          <Link href="/" className="inline-flex items-center gap-3">
+            <div className="h-12 w-12 bg-gradient-to-br from-amber-400 to-orange-500 rounded-xl flex items-center justify-center shadow-lg">
+              <Sparkles className="h-7 w-7 text-white" />
             </div>
-          </div>
-          <h1 className="text-3xl font-bold text-slate-900">Bem-vindo de volta</h1>
-          <p className="text-slate-600 mt-2">Entre na sua conta para continuar</p>
+            <div className="text-left">
+              <h1 className="text-2xl font-bold text-white tracking-tight">Calazans Lumina</h1>
+              <p className="text-xs text-amber-400/80">Invoice & Estimate System</p>
+            </div>
+          </Link>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
-                {error}
-              </div>
-            )}
+        {/* Login Card */}
+        <div className="bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 p-8">
+          <div className="text-center mb-6">
+            <h2 className="text-2xl font-bold text-white">Welcome back</h2>
+            <p className="text-slate-400 mt-1">Sign in to your account</p>
+          </div>
 
+          {error && (
+            <div className="bg-red-500/10 border border-red-500/20 text-red-400 px-4 py-3 rounded-lg mb-6 text-sm">
+              {error}
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-2">
-                Email
+              <label className="block text-sm font-medium text-slate-300 mb-2">
+                Email Address
               </label>
-              <input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="seu@email.com"
-              />
+              <div className="relative">
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-500" />
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full bg-white/5 border border-white/10 rounded-lg py-3 px-10 text-white placeholder:text-slate-500 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/50 transition"
+                  placeholder="you@example.com"
+                  required
+                />
+              </div>
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-slate-700 mb-2">
-                Senha
+              <label className="block text-sm font-medium text-slate-300 mb-2">
+                Password
               </label>
-              <input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="••••••••"
-              />
+              <div className="relative">
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-500" />
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full bg-white/5 border border-white/10 rounded-lg py-3 px-10 text-white placeholder:text-slate-500 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/50 transition"
+                  placeholder="••••••••"
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between">
+              <label className="flex items-center">
+                <input type="checkbox" className="rounded border-white/20 bg-white/5 text-amber-500 focus:ring-amber-500/50" />
+                <span className="ml-2 text-sm text-slate-400">Remember me</span>
+              </label>
+              <Link href="#" className="text-sm text-amber-400 hover:text-amber-300 transition">
+                Forgot password?
+              </Link>
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed font-semibold"
+              className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white py-3 rounded-lg font-semibold hover:from-amber-600 hover:to-orange-600 transition flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? "Entrando..." : "Entrar"}
+              {loading ? (
+                <>
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                  Signing in...
+                </>
+              ) : (
+                <>
+                  Sign In
+                  <ArrowRight className="h-5 w-5" />
+                </>
+              )}
             </button>
           </form>
 
           <div className="mt-6 text-center">
-            <p className="text-slate-600">
-              Não tem uma conta?{" "}
-              <Link href="/auth/register" className="text-blue-600 hover:text-blue-700 font-semibold">
-                Cadastre-se
+            <p className="text-slate-400">
+              Don&apos;t have an account?{" "}
+              <Link href="/auth/register" className="text-amber-400 hover:text-amber-300 font-medium transition">
+                Create one
               </Link>
             </p>
           </div>
         </div>
 
-        <div className="mt-6 text-center">
-          <Link href="/" className="text-slate-600 hover:text-slate-900">
-            ← Voltar para home
-          </Link>
-        </div>
+        <p className="text-center text-slate-500 text-sm mt-6">
+          &copy; 2024 Calazans Lumina. All rights reserved.
+        </p>
       </div>
     </div>
   );

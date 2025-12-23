@@ -1,151 +1,162 @@
-# Construction Invoice System
+# Calazans Lumina - Invoice & Estimate System
 
-Sistema completo de gerenciamento de faturas para empresas de construção, desenvolvido com Next.js 15, TypeScript, Prisma e Tailwind CSS.
+Professional invoicing and estimate management system for **Painting**, **Construction**, and **House Cleaning** service businesses in the USA. Built with Next.js 15, TypeScript, Prisma, and Tailwind CSS.
 
-## Funcionalidades
+## Features
 
-- ✅ Autenticação de usuários
-- ✅ Gerenciamento de clientes
-- ✅ Criação e gerenciamento de faturas
-- ✅ Geração de PDF para faturas
-- ✅ Dashboard com estatísticas
-- ✅ Interface moderna e responsiva
-- ✅ Banco de dados SQLite com Prisma
+- **Professional Invoices** - Create beautiful, customizable invoices
+- **Quick Estimates** - Send estimates and convert them to invoices with one click
+- **Customer Management** - Keep all client information organized
+- **Service Categories** - Specialized for Painting, Construction, and House Cleaning
+- **PDF Generation** - Download and share professional PDFs
+- **Dashboard Analytics** - Track revenue, pending payments, and more
+- **Payment Tracking** - Record payments via cash, check, card, Zelle, Venmo
+- **Modern UI** - Dark theme with responsive design
 
-## Tecnologias
+## Service Categories
 
-- **Next.js 15** - Framework React com App Router
-- **TypeScript** - Tipagem estática
-- **Prisma** - ORM para banco de dados
-- **SQLite** - Banco de dados
-- **Tailwind CSS** - Estilização
-- **Lucide React** - Ícones
-- **bcryptjs** - Criptografia de senhas
-- **jsPDF** - Geração de PDFs
+### Painting Services
+- Interior & Exterior painting
+- Residential & Commercial projects
+- Track by square footage or room
 
-## Instalação
+### Construction
+- Renovations & Remodeling
+- Repairs & New construction
+- Detailed itemized billing
 
-### Pré-requisitos
+### House Cleaning
+- Regular cleaning
+- Deep cleaning
+- Move-in/Move-out services
 
-- Node.js 18+ instalado
-- npm ou yarn
+## Tech Stack
 
-### Passos
+- **Next.js 15** - React framework with App Router
+- **TypeScript** - Type safety
+- **Prisma** - Database ORM
+- **SQLite** - Database (easily switch to PostgreSQL/MySQL)
+- **Tailwind CSS** - Styling
+- **Lucide React** - Icons
+- **jsPDF** - PDF generation
+- **bcryptjs** - Password hashing
 
-1. Clone o repositório ou navegue até a pasta do projeto
+## Getting Started
 
-2. Instale as dependências:
-```bash
+### Prerequisites
+
+- Node.js 18+
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+\`\`\`bash
+git clone <repository-url>
+cd construction-invoice-system
+\`\`\`
+
+2. Install dependencies:
+\`\`\`bash
 npm install
-```
+\`\`\`
 
-3. Configure o arquivo de ambiente:
-```bash
+3. Set up environment:
+\`\`\`bash
 cp .env.example .env
-```
+\`\`\`
 
-4. Execute as migrações do banco de dados:
-```bash
+4. Initialize database:
+\`\`\`bash
 npx prisma migrate dev --name init
-```
-
-5. Gere o cliente Prisma:
-```bash
 npx prisma generate
-```
+\`\`\`
 
-6. Inicie o servidor de desenvolvimento:
-```bash
+5. Start development server:
+\`\`\`bash
 npm run dev
-```
+\`\`\`
 
-7. Acesse http://localhost:3000
+6. Open http://localhost:3000
 
-## Estrutura do Projeto
+## Project Structure
 
-```
+\`\`\`
 construction-invoice-system/
-├── app/                      # Next.js App Router
-│   ├── api/                  # API Routes
-│   │   └── auth/            # Rotas de autenticação
-│   ├── auth/                # Páginas de autenticação
+├── app/
+│   ├── api/                    # API Routes
+│   │   ├── auth/              # Authentication
+│   │   ├── customers/         # Customer CRUD
+│   │   ├── invoices/          # Invoice CRUD
+│   │   └── estimates/         # Estimate CRUD
+│   ├── auth/                  # Auth pages
 │   │   ├── login/
 │   │   └── register/
-│   ├── dashboard/           # Páginas do dashboard
-│   │   ├── invoices/        # Gerenciamento de faturas
-│   │   └── customers/       # Gerenciamento de clientes
-│   ├── globals.css          # Estilos globais
-│   ├── layout.tsx           # Layout raiz
-│   └── page.tsx             # Página inicial
-├── lib/                     # Utilitários e configurações
-│   ├── db.ts                # Cliente Prisma
-│   └── utils.ts             # Funções utilitárias
-├── prisma/                  # Prisma schema e migrações
-│   └── schema.prisma        # Definição do banco de dados
-├── public/                  # Arquivos estáticos
-├── .env.example             # Exemplo de variáveis de ambiente
-├── package.json             # Dependências do projeto
-├── tailwind.config.ts       # Configuração do Tailwind
-├── tsconfig.json            # Configuração do TypeScript
-└── README.md                # Este arquivo
-```
+│   ├── dashboard/             # Dashboard pages
+│   │   ├── invoices/          # Invoice management
+│   │   ├── estimates/         # Estimate management
+│   │   ├── customers/         # Customer management
+│   │   └── settings/          # User settings
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx               # Landing page
+├── lib/
+│   ├── db.ts                  # Prisma client
+│   ├── utils.ts               # Utilities
+│   └── pdf.ts                 # PDF generation
+├── prisma/
+│   └── schema.prisma          # Database schema
+└── public/
+\`\`\`
 
-## Uso
+## Database Models
 
-### Criar uma conta
+- **User** - Account information
+- **Customer** - Client details
+- **Invoice** - Billing documents
+- **InvoiceItem** - Line items for invoices
+- **Estimate** - Quote documents
+- **EstimateItem** - Line items for estimates
+- **Payment** - Payment records
 
-1. Acesse http://localhost:3000
-2. Clique em "Cadastrar"
-3. Preencha seus dados
-4. Faça login
+## Available Scripts
 
-### Criar uma fatura
+\`\`\`bash
+npm run dev      # Development server
+npm run build    # Production build
+npm run start    # Production server
+npm run lint     # Run linter
+\`\`\`
 
-1. Acesse o Dashboard
-2. Clique em "Nova Fatura"
-3. Selecione ou crie um cliente
-4. Adicione os itens da fatura
-5. Salve e gere o PDF
+## Environment Variables
 
-## Scripts Disponíveis
+\`\`\`env
+DATABASE_URL="file:./dev.db"
+\`\`\`
 
-```bash
-npm run dev      # Inicia o servidor de desenvolvimento
-npm run build    # Build para produção
-npm run start    # Inicia o servidor de produção
-npm run lint     # Executa o linter
-```
+## Security
 
-## Banco de Dados
+- Passwords hashed with bcryptjs
+- HTTP-only session cookies
+- Input validation on all API routes
 
-O sistema usa SQLite por padrão para facilitar o desenvolvimento. Para produção, você pode configurar PostgreSQL ou MySQL editando o arquivo `prisma/schema.prisma`.
+## Roadmap
 
-### Modelos do Banco de Dados
+- [ ] Email notifications
+- [ ] Multi-currency support
+- [ ] Advanced reporting
+- [ ] QuickBooks integration
+- [ ] Mobile app
+- [ ] Recurring invoices
 
-- **User** - Usuários do sistema
-- **Customer** - Clientes
-- **Invoice** - Faturas
-- **InvoiceItem** - Itens das faturas
+## License
 
-## Segurança
+MIT License - free for personal and commercial use.
 
-- Senhas são hash usando bcryptjs
-- Sessões são gerenciadas com cookies HTTP-only
-- Validação de entrada em todas as rotas da API
+## Support
 
-## Próximos Passos
+For issues or feature requests, please open an issue on GitHub.
 
-- [ ] Implementar middleware de autenticação
-- [ ] Adicionar filtros e pesquisa nas listagens
-- [ ] Implementar relatórios avançados
-- [ ] Adicionar suporte a múltiplas moedas
-- [ ] Implementar notificações por email
-- [ ] Adicionar testes automatizados
+---
 
-## Licença
-
-Este projeto é de código aberto e está disponível sob a licença MIT.
-
-## Suporte
-
-Para dúvidas ou problemas, abra uma issue no repositório.
+Built with love by the Calazans Lumina Team

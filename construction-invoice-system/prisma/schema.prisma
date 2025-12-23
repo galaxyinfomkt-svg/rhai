@@ -1,5 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// Calazans Lumina - Invoice & Estimate System
+// For Painting, Construction, and House Cleaning Services
 
 generator client {
   provider = "prisma-client-js"
@@ -11,56 +11,136 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(cuid())
-  email     String    @unique
-  name      String?
-  password  String
-  role      String    @default("user")
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  invoices  Invoice[]
+  id           String     @id @default(cuid())
+  email        String     @unique
+  name         String?
+  password     String
+  companyName  String?
+  phone        String?
+  address      String?
+  city         String?
+  state        String?
+  zipCode      String?
+  role         String     @default("user")
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  invoices     Invoice[]
+  estimates    Estimate[]
+  customers    Customer[]
 }
 
 model Customer {
-  id        String    @id @default(cuid())
+  id        String     @id @default(cuid())
+  userId    String
+  user      User       @relation(fields: [userId], references: [id])
   name      String
   email     String?
   phone     String?
   address   String?
-  taxId     String?   // CPF/CNPJ
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  city      String?
+  state     String?
+  zipCode   String?
+  notes     String?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
   invoices  Invoice[]
+  estimates Estimate[]
+}
+
+// Service categories for the business
+enum ServiceType {
+  PAINTING
+  CONSTRUCTION
+  HOUSE_CLEANING
 }
 
 model Invoice {
-  id          String        @id @default(cuid())
-  number      String        @unique
-  customerId  String
-  customer    Customer      @relation(fields: [customerId], references: [id])
-  userId      String
-  user        User          @relation(fields: [userId], references: [id])
-  issueDate   DateTime      @default(now())
-  dueDate     DateTime
-  status      String        @default("draft") // draft, sent, paid, overdue, cancelled
-  subtotal    Float
-  tax         Float         @default(0)
-  discount    Float         @default(0)
-  total       Float
-  notes       String?
-  items       InvoiceItem[]
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
+  id              String        @id @default(cuid())
+  number          String        @unique
+  customerId      String
+  customer        Customer      @relation(fields: [customerId], references: [id])
+  userId          String
+  user            User          @relation(fields: [userId], references: [id])
+  serviceType     String        @default("PAINTING") // PAINTING, CONSTRUCTION, HOUSE_CLEANING
+  projectName     String?
+  projectAddress  String?
+  issueDate       DateTime      @default(now())
+  dueDate         DateTime
+  status          String        @default("draft") // draft, sent, paid, overdue, cancelled
+  subtotal        Float
+  taxRate         Float         @default(0)
+  taxAmount       Float         @default(0)
+  discount        Float         @default(0)
+  total           Float
+  notes           String?
+  terms           String?
+  items           InvoiceItem[]
+  payments        Payment[]
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
 }
 
 model InvoiceItem {
-  id          String  @id @default(cuid())
+  id          String   @id @default(cuid())
   invoiceId   String
-  invoice     Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  invoice     Invoice  @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
   description String
   quantity    Float
+  unit        String   @default("unit") // unit, sqft, hour, day, etc.
   unitPrice   Float
   total       Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Estimate {
+  id              String         @id @default(cuid())
+  number          String         @unique
+  customerId      String
+  customer        Customer       @relation(fields: [customerId], references: [id])
+  userId          String
+  user            User           @relation(fields: [userId], references: [id])
+  serviceType     String         @default("PAINTING") // PAINTING, CONSTRUCTION, HOUSE_CLEANING
+  projectName     String?
+  projectAddress  String?
+  issueDate       DateTime       @default(now())
+  validUntil      DateTime
+  status          String         @default("draft") // draft, sent, approved, declined, expired, converted
+  subtotal        Float
+  taxRate         Float          @default(0)
+  taxAmount       Float          @default(0)
+  discount        Float          @default(0)
+  total           Float
+  notes           String?
+  terms           String?
+  convertedToInvoiceId String?   // If converted to invoice
+  items           EstimateItem[]
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+}
+
+model EstimateItem {
+  id          String   @id @default(cuid())
+  estimateId  String
+  estimate    Estimate @relation(fields: [estimateId], references: [id], onDelete: Cascade)
+  description String
+  quantity    Float
+  unit        String   @default("unit") // unit, sqft, hour, day, etc.
+  unitPrice   Float
+  total       Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Payment {
+  id          String   @id @default(cuid())
+  invoiceId   String
+  invoice     Invoice  @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  amount      Float
+  method      String   @default("cash") // cash, check, card, transfer, zelle, venmo
+  reference   String?
+  notes       String?
+  paidAt      DateTime @default(now())
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
